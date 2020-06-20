@@ -1,0 +1,42 @@
+<%- include("../partials/home") %>
+
+<div class="ui main text container">
+    <h1>Edit Stock Transaction</h1>
+    <form class="ui form" action="/factorystocks/<%= stockTransaction._id %>?_method=PUT" method="post">
+        <div class="required field">
+            <label>Transaction Date</label>
+            <input type="date" name="stock[transactionDate]" value="<%= stockTransaction.asOfDate %>" required>
+        </div>
+        <div class="field">
+            <label>Transaction Type</label>
+            <select name="stock[transactionType]" required>
+                <option>IN</option>
+                <option>OUT</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Products</label>
+            <select name="stock[productName]">
+                <% products.forEach(product => { %>
+                    <option><%= product.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="required field">
+            <label>Price</label>
+            <input type="text" name="stock[price]" value="<%= stockTransaction.productPrice %>" required>
+        </div>
+        <div class="required field">
+            <label>Quantity</label>
+            <input type="text" name="stock[quantity]" value="<%= stockTransaction.quantity %>" required>
+        </div>
+        <div class="required field">
+            <label>Total Amount</label>
+            <input type="text" name="stock[totalAmount]" value="<%= stockTransaction.totalAmount %>" required>
+        </div>
+        <button class="ui button" type="submit">Edit Transaction</button>
+    </form>
+    <a class="ui blue basic button" href="/factorystocks">Cancel</a>
+</div>
+
+<%- include("../partials/footer") %>

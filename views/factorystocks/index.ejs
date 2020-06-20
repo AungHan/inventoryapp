@@ -1,0 +1,38 @@
+<%- include("../partials/home") %>
+<div class="ui main container">
+    <h3 class="ui huge header">Factory stock transactions</h3>
+    <a href="/factorystocks/new"><button class="ui labeled icon button"><i class="plus square icon"></i>Add</button></a>
+    <table class="ui celled striped table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Transaction Type</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% stockTransactions.forEach((stockTransaction, index) => { %>
+            <tr>
+                <td><%= index+1 %></td>
+                <td class="date-formatter"><i class="calendar alternate outline icon"></i><%= stockTransaction.asOfDate %></td>
+                <td><%= stockTransaction.transactionType %></td>
+                <td><%= stockTransaction.product.name %></td>
+                <td><%= stockTransaction.productPrice %></td>
+                <td><%= stockTransaction.quantity %></td>
+                <td><%= stockTransaction.totalAmount %></td>
+                <td><a class="ui orange basic button" href="/factorystocks/<%= stockTransaction._id %>/edit">Edit</a>
+                    <form id="delete-stock-transaction"  action="/factorystocks/<%= stockTransaction._id %>?_method=DELETE" method="post">
+                        <button class="ui red basic button">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
+<%- include("../partials/footer") %>

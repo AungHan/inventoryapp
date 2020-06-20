@@ -1,0 +1,42 @@
+<%- include("../partials/home") %>
+
+<div class="ui main text container">
+    <h1>Create Stock Transaction</h1>
+    <form class="ui form" action="/factorystocks/new" method="post">
+        <div class="required field">
+            <label>Transaction Date</label>
+            <input type="date" name="stock[transactionDate]" required>
+        </div>
+        <div class="field">
+            <label>Transaction Type</label>
+            <select name="stock[transactionType]" required>
+                <option selected>IN</option>
+                <option>OUT</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Products</label>
+            <select name="stock[productName]">
+                <% products.forEach(product => { %>
+                    <option><%= product.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="required field">
+            <label>Price</label>
+            <input type="text" name="stock[price]" placeholder="0.00" required>
+        </div>
+        <div class="required field">
+            <label>Quantity</label>
+            <input type="text" name="stock[quantity]" placeholder="1" required>
+        </div>
+        <div class="required field">
+            <label>Total Amount</label>
+            <input type="text" name="stock[totalAmount]" placeholder="0.00" required>
+        </div>
+        <button class="ui button" type="submit">Add New Transaction</button>
+    </form>
+    <a class="ui blue basic button" href="/factorystocks">Cancel</a>
+</div>
+
+<%- include("../partials/footer") %>
