@@ -17,3 +17,7 @@ body {
 #delete-stock-transaction {
     display: inline;
 }
+
+#cancel-edits {
+ display: inline;
+}

@@ -5,20 +5,27 @@
     <form class="ui form" action="/factorystocks/<%= stockTransaction._id %>?_method=PUT" method="post">
         <div class="required field">
             <label>Transaction Date</label>
-            <input type="date" name="stock[transactionDate]" value="<%= stockTransaction.asOfDate %>" required>
+            <input type="date" name="stock[transactionDate]" value="<%= stockTransaction.asOfDate.toISOString().substring(0,10) %>" required>
         </div>
         <div class="field">
             <label>Transaction Type</label>
             <select name="stock[transactionType]" required>
-                <option>IN</option>
-                <option>OUT</option>
+               <option <% if(stockTransaction.transactionType === 'IN') { %>
+                    <%= "selected" %>
+                   <% } %>>IN</option>
+                <option <% if(stockTransaction.transactionType === 'OUT') { %>
+                    <%= "selected" %>
+                        <% } %>>OUT</option>
             </select>
         </div>
         <div class="field">
             <label>Products</label>
             <select name="stock[productName]">
                 <% products.forEach(product => { %>
-                    <option><%= product.name %></option>
+                    <option <% if(stockTransaction.product.name === product.name) { %>
+                        <%= "selected "%>
+                        <% } %>
+                        ><%= product.name %></option>
                 <% }); %>
             </select>
         </div>
@@ -34,9 +41,9 @@
             <label>Total Amount</label>
             <input type="text" name="stock[totalAmount]" value="<%= stockTransaction.totalAmount %>" required>
         </div>
-        <button class="ui button" type="submit">Edit Transaction</button>
+        <button class="ui blue basic button" type="submit">Edit Transaction</button>
+        <a class="ui orange basic button" href="/factorystocks">Cancel</a>
     </form>
-    <a class="ui blue basic button" href="/factorystocks">Cancel</a>
 </div>
 
 <%- include("../partials/footer") %>
